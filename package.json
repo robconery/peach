@@ -1,0 +1,23 @@
+{
+  "name": "redfour",
+  "version": "1.0.0",
+  "description": "Just rolled this together, will build it out hopefully..",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/red-4/store.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/red-4/store/issues"
+  },
+  "homepage": "https://github.com/red-4/store#readme",
+  "dependencies": {
+    "massive": "^2.1.0",
+    "underscore": "^1.8.3"
+  }
+}

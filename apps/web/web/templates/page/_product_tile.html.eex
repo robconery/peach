@@ -1,0 +1,36 @@
+<div class="col-sm-4"">
+  <div class="col-item">
+    <div class="photo">
+      <img src="/images/products/<%=@product.image%>" class="img-responsive" alt="a" />
+    </div>
+    <div class="info">
+      <div class="row">
+        <div class="price col-md-6">
+          <h5>
+            <%=@product.name%>
+          </h5>
+          <h5 class="price-text-color">
+            <%=money @product.price%>
+          </h5>
+        </div>
+        <div class="rating hidden-sm col-md-6">
+          <i class="price-text-color glyphicon glyphicon-star"></i>
+          <i class="price-text-color glyphicon glyphicon-star"></i>
+          <i class="price-text-color glyphicon glyphicon-star"></i>
+          <i class="glyphicon glyphicon-star"></i>
+        </div>
+      </div>
+      <div class="separator clear-left">
+        <p class="btn-add">
+          <i class="glyphicon glyphicon-shopping-cart"></i>
+          <a href="#" class="hidden-sm add-to-cart">Add to cart</a></p>
+        <p class="btn-details">
+          <i class="glyphicon glyphicon-list"></i>
+          <a href="/catalog/<%=@product.sku%>" class="hidden-sm">More details</a>
+        </p>
+      </div>
+      <div class="clearfix">
+      </div>
+    </div>
+  </div>
+</div>

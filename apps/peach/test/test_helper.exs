@@ -1,0 +1,148 @@
+ExUnit.start()
+
+import Moebius.DocumentQuery
+alias Peach.Db.Postgres, as: Db
+
+"drop table if exists products" |> Db.run
+"drop table if exists vendors" |> Db.run
+"drop table if exists collections" |> Db.run
+"drop table if exists sessions" |> Db.run
+
+
+products = [%{collections: ["equipment", "featured"], cost: 2320,
+   description: "At last, after two thousand years of research, the illudium Q-36 explosive space modulator is ready! Simply line up the trajectory, wait for planetary synchronization, make sure no rabbits are around - and kaboom! You *should* hear an earth-shattering kaboom.",
+   domain: "localhost",  image: "illudium-q36.jpg", inventory: 99,
+   name: "Illudium Q-36 Explosive Space Modulator", price: 499500,
+   published_at: "2016-02-12T01:21:29.147Z", sku: "illudium-q36",
+   status: "published",
+   requires_shipping: true,
+   downloadable: false,
+   delivery:  %{type: :post, methods: [:ground, :air, :cargo]},
+   summary: "Need to destroy a planet? The new and improved Illudium Q36 will leave no stone un-vaporized!",
+   vendor: %{name: "Martian Armaments, Ltd", slug: "martian-armaments"}},
+ %{collections: ["vacations", "gift-ideas"], cost: 3345,
+   description: "The most important part of any wedding is where it took place - because the pictures you take show just how amazing you and your partner are. So give your friends something to be jealous about with a wedding on Mars!",
+   domain: "localhost",  image: "honeymoon-mars.jpg", inventory: 22,
+   name: "Honeymoon on Mars", price: 1233200,
+   published_at: "2016-02-12T01:21:29.147Z", sku: "honeymoon-mars",
+   status: "published",
+   requires_shipping: false,
+   downloadable: true,
+   delivery:  %{type: :download, provider: "vimeo", key: "XYZ", size: "10Mb", bucket: "BUKKIT", file_name: "file.mp4"},
+   summary: "Tired of boring wedding pictures? Wow your friends with your marriage on Mars!",
+   vendor: %{name: "Red Planet Love Machine", slug: "red-planet"}},
+ %{collections: ["equipment"], cost: 67743,
+   description: "Why walk **when you can fly**! Weak Martian gravity means you too can fly wherever you want, whenever you want with some rockets on your back. Light, portable and really loud - you'll be the talk of the Martian skies! ",
+   domain: "localhost", image: "johnny-liftoff.jpg", inventory: 43,
+   name: "Johnny Liftoff Rocket Suit", price: 8933300,
+   published_at: "2016-02-12T01:21:29.147Z", sku: "johnny-liftoff",
+   status: "published",
+   requires_shipping: true,
+   downloadable: false,
+   delivery:  %{type: :post, methods: [:ground, :air, :cargo]},
+   summary: "Keep your feet off the ground with our space-age rocket suit",
+   vendor: %{name: "Martian Armaments, Ltd", slug: "martian-armaments"}},
+ %{collections: ["equipment"], cost: 53212,
+   description: "Not quite flying, *not quite driving*: you'll love our new Sky-Hook Technology which powers the new, unique Mars Mobile. Point to fun things from our big windows and **see Mars in style**.",
+   domain: "localhost", image: "mars-mobile.jpg", inventory: 64,
+   name: "The Mars Mobile", price: 6532100,
+   published_at: "2016-02-12T01:21:29.147Z", sku: "mars-mobile",
+   status: "published",
+   requires_shipping: true,
+   downloadable: false,
+   delivery:  %{type: :post, methods: [:ground, :air, :cargo]},
+   summary: "Wheels? Who needs them! Use our space-age sky hooks to get around the surface of Mars!",
+   vendor: %{name: "Martian Armaments, Ltd", slug: "martian-armaments"}},
+ %{collections: ["vacations", "gift-ideas"], cost: 2320,
+   description: "Driving is for **Earth-bound sissies**, and flying can be darn expensive. Strap your space boots on and come with us on a five-day trek across the surface of Mars. We'll try not to die of thirst by melting buried ice reserves and, if we're lucky, we'll find a Martian or two to eat.",
+   domain: "localhost", image: "mars-trek.jpg", inventory: 99,
+   name: "A Five-day Trek on Mars", price: 6532100,
+   published_at: "2016-02-12T01:21:29.147Z", sku: "mars-trek",
+   status: "published",
+   requires_shipping: true,
+   downloadable: false,
+   delivery:  %{type: :post, methods: [:ground, :air, :cargo]},
+   summary: "Hop, skip, bounce your way along the major valleys and craters of Mars!",
+   vendor: %{name: "Marinaris Outfitters", slug: "marinaris"}},
+ %{collections: ["vacations", "gift-ideas", "featured"], cost: 887,
+   description: "A perfect first date or anniversay gift! The sunsets on Mars remind you just how warm Earth was, and how tired you are of the color red!",
+   domain: "localhost", image: "martian-sunset-cruise.jpg", inventory: 1,
+   name: "A Lovely Martian Sunset Cruise For Two", price: 92900,
+   published_at: "2016-02-12T01:21:29.147Z", sku: "martian-sunset-cruise",
+   status: "published",
+   requires_shipping: false,
+   downloadable: true,
+   delivery: %{type: :download, provider: "vimeo", key: "XYZ", size: "10Mb", bucket: "BUKKIT", file_name: "file.mp4"},
+   summary: "What better way to say 'I love you' then watching a cold Martian sunset?",
+   vendor: %{name: "Marinaris Outfitters", slug: "marinaris"}},
+ %{collections: ["vacations"], cost: 4432,
+   description: "Spend the day in the Buck Rogers way - racing from the surface of Mars against a talented field of pilots. Be the first to touch down on Phobos, grab the next clue, and then head over to Deimos for the final clue. The winner will be the first space racer to return to the hidden finish line on Mars!",
+   domain: "localhost", image: "moon-races.jpg", inventory: 99,
+   name: "The Amazing Mars Moon Race", price: 6400000,
+   published_at: "2016-02-12T01:21:29.147Z", sku: "moon-races",
+   status: "published",
+   requires_shipping: false,
+   downloadable: true,
+   delivery: %{type: :download, provider: "vimeo", key: "XYZ", size: "10Mb", bucket: "BUKKIT", file_name: "file.mp4"},
+   summary: "To the moons and back! Race in space with this fun adventure.",
+   vendor: %{name: "Marinaris Outfitters", slug: "marinaris"}},
+ %{collections: ["vacations", "gift-ideas", "featured"], cost: 65332,
+   description: "Why wait in long lines for a rocket to take you slowly back to Earth when you can use our brand new Mars Ejection Technology? We'll launch you at the Earth at 10 times the speed of our passenger rockets - all you need to do is slow down enough so you don't burn up. Cut your return time (and possibly yourself) in half!",
+   domain: "localhost", image: "one-way-reentry.jpg", inventory: 99,
+   name: "One Time Re-entry to Earth", price: 8326200,
+   published_at: "2016-02-12T01:21:29.147Z", sku: "one-way-reentry",
+   status: "published",
+   requires_shipping: false,
+   downloadable: true,
+   delivery: %{type: :download, provider: "vimeo", key: "XYZ", size: "10Mb", bucket: "BUKKIT", file_name: "file.mp4"},
+   summary: "Sometimes you need to get back in a hurry, our One-way Re-entry might get you there.",
+   vendor: %{name: "Martian Armaments, Ltd", slug: "martian-armaments"}},
+ %{collections: ["vacations"], cost: 5467,
+   description: "Get yourself in deep with our Weekend Trip to Valles Marinaris. We'll trek along the terrifying edges of the huge, deep crack in the surface of Mars. You'll forget your fears as we walk deeper and deeper into the interior of the Red Planet.",
+   domain: "localhost",  image: "valles-marineris-weekend.jpg",
+   inventory: 33, name: "A Weekend in Valles Marinaris", price: 3533300,
+   published_at: "2016-02-12T01:21:29.147Z", sku: "valles-marineris-weekend",
+   status: "published",
+   requires_shipping: false,
+   downloadable: true,
+   delivery: %{type: :download, provider: "vimeo", key: "XYZ", size: "10Mb", bucket: "BUKKIT", file_name: "file.mp4"},
+   summary: "Come get lost in one of the biggest trenches in the solar system",
+   vendor: %{name: "Red Planet Love Machine", slug: "red-planet"}},
+ %{collections: ["equipment", "vacations"], cost: 45532,
+   description: "The Martian surface is scarred by huge numbers of craters - but we like to think of these gigantic holes as 'scars of love' - so say I love you by buying your very own! Whether it's a personal vanity treat or for that very special someone, a Martian crater shows just how *deep* you really are.",
+   domain: "localhost",image: "your-own-crater.jpg", inventory: 0,
+   name: "Your Very Own Crater", price: 9999900,
+   published_at: "2016-02-12T01:21:29.147Z", sku: "your-own-crater",
+   status: "published",
+   requires_shipping: true,
+   downloadable: false,
+   delivery: %{type: :post, methods: [:ground, :air, :cargo]},
+   summary: "Buy one for yourself or the one you love! Nothing says 'you're truly special' like a huge hole in the ground",
+   vendor: %{name: "Red Planet Love Machine", slug: "red-planet"}}]
+
+for p <- products do
+  db(:products) |> searchable([:name, :description, :summary]) |> Db.save(p)
+end
+
+
+collections = [%{description: "The good stuff", domain: "localhost", slug: "featured"},
+     %{description: "Fun places to go", domain: "localhost",
+       slug: "vacations"},
+     %{description: "Mars can be unforgiving...", domain: "localhost",
+       slug: "equipment"},
+     %{description: "Something for your favorite people", domain: "localhost",
+       slug: "gift-ideas"}]
+
+for c <- collections, do: db(:collections) |> Db.save(c)
+
+vendors = [%{domain: "localhost", image: "martian-armaments.jpg",
+     name: "Martian Armaments, Ltd", slug: "martian-armaments"},
+   %{domain: "localhost", image: "red-planet.jpg",
+     name: "Red Planet Love Machine", slug: "red-planet"},
+   %{domain: "localhost", image: "marinaris.jpg",
+     name: "Marinaris Outfitters", slug: "marinaris"}]
+
+for v <- vendors, do: db(:vendors) |> Db.save(v)
+
+Db.create_document_table :transactions
+Db.create_document_table :invoices

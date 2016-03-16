@@ -1,0 +1,29 @@
+<div class="container" style="padding-top:80px">
+  <div class="row">
+    <div class="col-md-6">
+      <img src="/images/products/<%=@product.image%>" alt=""/>
+    </div>
+    <div class="col-md-6">
+      <h1><%=@product.name%></h1>
+
+        <p><a href="/vendors/<%=@product.vendor.slug%>"><%=@product.vendor.name%></a></p>
+
+      <p class="lead"><i><%=@product.summary%></i></p>
+      <p class="lead"><%= raw markdown @product.description%></p>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h3><%=money @product.price%></h3>
+          <hr/>
+          <p>
+            <%= form_for @conn, cart_path(@conn, :add_item), [as: :product], fn f -> %>
+              <%= text_input f, :sku, type: :hidden, value: @product.sku %>
+              <%= submit "Add To Cart", class: "btn btn-success" %>
+            <% end %>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
