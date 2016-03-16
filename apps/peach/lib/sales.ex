@@ -1,5 +1,5 @@
 defmodule Peach.Sales do
-  use GenServer
+
   import Peach.Util
   alias Peach.Sales.CartItem
   alias Peach.Db.Postgres, as: Db
