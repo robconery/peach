@@ -7,7 +7,7 @@ defmodule Peach.Router.Checkout do
   version "v1"
 
   namespace :checkout do
-    describe "Checking out"
+
     params do
       requires :token, type: String
       requires :customer_email, type: String

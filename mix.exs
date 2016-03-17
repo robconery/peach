@@ -15,7 +15,7 @@ defmodule Peach.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     [
-      applications: [:logger, :tzdata, :moebius, :maru,:exsync],
+      applications: [:logger, :tzdata, :moebius, :maru],
      mod: {Peach.Store, []}
    ]
   end
@@ -27,8 +27,7 @@ defmodule Peach.Mixfile do
       {:plug, "~> 1.1.1"},
       {:poison, "~> 2.0.1", optional: true},
       {:maru, "~> 0.8"},
-      {:stripity_stripe, "~> 1.4.0"},
-      {:exsync, "~> 0.1", only: :dev}
+      {:stripity_stripe, "~> 1.4.0"}
     ]
   end
 end
