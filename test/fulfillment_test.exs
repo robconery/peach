@@ -1,7 +1,6 @@
 defmodule Peach.FulfillmentTest do
   use ExUnit.Case
   alias Peach.Fulfillment
-  alias Peach.Accounting.SalesOrder
   alias Peach.Sales
   import Plug.Conn
 

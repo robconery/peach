@@ -1,10 +1,8 @@
 defmodule Peach.OrderTest do
   use ExUnit.Case
   import Plug.Conn
-  alias Peach.Accounting.SalesOrder
   alias Peach.Sales
   alias Peach.Db.Postgres, as: Db
-  import Moebius.DocumentQuery
 
   @order_args key: "test"
   @item sku: "honeymoon-mars", quantity: 1
