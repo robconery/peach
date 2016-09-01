@@ -20,7 +20,7 @@ defmodule Peach.API do
   end
 
   rescue_from Unauthorized do
-    status 401
+    IO.inspect "401: Unauthorized"
     conn
       |> put_status(401)
       |> text("Unauthorized")
